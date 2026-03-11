@@ -1,8 +1,10 @@
 package main
 
 import (
+	
 	"fmt"
-
+	"math"
+	"strconv"
 )
 
 func sum(a int, b int)int{
@@ -237,6 +239,129 @@ for _, v1 := range num1 {
 	
 }
 
+func LCM(a int, b int)int{
+
+	var max int
+
+	if a < b{
+		max =b
+	}else{
+		max = a
+	}
+
+	for {
+		if max % a ==0 && max % b ==0{
+		return max
+	}
+	max++
+}
+}
+
+
+func ArmstrongNumber(num int)string{
+	var armStrong int
+
+	originalNumber := num
+
+	for num != 0{ 
+		digit := num % 10
+		digit = int(math.Pow(float64(digit),3))
+		armStrong = armStrong + digit 
+		num = num /10
+	}
+	if originalNumber == armStrong{
+		return "The number is armstrong"
+	}else{
+		return "The number is not armstrong"
+	}
+}
+
+func RangeArmstrong(number int){
+	var rangeNumbers []int
+	var armStrong int
+	rangeNumbers = append(rangeNumbers, 1,2,3,4,5,6,7,8,9)
+
+	for i := 10; i <= number ;i++{
+		temp :=i
+		for temp !=0{
+			digit := temp% 10
+			digit = int(math.Pow(float64(digit),3))
+			armStrong = armStrong + digit
+			temp = temp /10
+		}
+		if  i== armStrong{
+			rangeNumbers = append(rangeNumbers, i)
+		}
+		armStrong = 0
+	}
+	fmt.Println(rangeNumbers)
+}
+
+func SumOfDigits(num int){
+	var sum int
+	for num !=0{ //123
+		digit := num %10
+		sum = sum + digit
+		num = num /10
+	}
+	fmt.Println(sum)
+}
+
+func ProductOfDigits(num int){
+	var sum int = 1
+	for num !=0{ //123
+		digit := num %10
+		sum = sum * digit
+		num = num /10
+	}
+	fmt.Println(sum)
+}
+
+func EvenOddCounter(number int){
+	var evenCount int
+	var OddCount int
+
+	for number != 0{
+		digit := number % 10
+		if digit %2 ==0{
+			evenCount++
+		}else{
+			OddCount++
+		}
+		number =number/10
+	}
+	fmt.Println("The even count", evenCount)
+	fmt.Println("The odd count", OddCount)
+}
+
+
+func CovertBinary(number int){
+	
+	fmt.Printf("%b",number)
+
+}
+func digimalConverstion(value string){
+	decimal , err := strconv.ParseInt(value,2,64)
+
+	if err != nil {
+		fmt.Println("Error:", err)
+		return
+	}
+	fmt.Println(decimal)
+}
+
+
+func CustomPower(base int, power int){//2,2
+	originaleBase := base
+	for i:=1; i < power;i++{
+		base = base * originaleBase
+	}
+	fmt.Println(base)
+}
+
+
+
+
 
 
 
@@ -284,7 +409,27 @@ func main(){
 
  //PrintPrime(3)
 
- HCF(12,18)
+ //HCF(12,18)
+
+//  result := LCM(4, 44)
+
+// 	fmt.Println("LCM is:", result)
+
+//fmt.Println(ArmstrongNumber(1))
+
+//RangeArmstrong(1000)
+
+//SumOfDigits(1535)
+
+//ProductOfDigits(153)
+
+//EvenOddCounter(12345)
+
+//CovertBinary(10)
+
+//digimalConverstion("1010")
+
+CustomPower(3,3)
 
 
 
