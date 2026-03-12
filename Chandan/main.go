@@ -360,7 +360,130 @@ func CustomPower(base int, power int){//2,2
 }
 
 
+func SquareRoot(num int){
+	fmt.Println(math.Sqrt(float64(num)))
+}
+func IntSqrt(n int) int {
+	i := 1
+	for i*i <= n {
+		i++
+	}
+	return i - 1
+}
 
+func PerfectNumber(number int){//6
+	var sli []int
+	var sum int
+
+   for i:=1; i< number;i++{
+	  if number % i ==0{
+         sli = append(sli, i)
+	  }
+   }
+   for _,value := range sli{
+	  sum = sum + value
+   }
+
+   if number == sum{
+	fmt.Println("Perfect number")
+   }else{
+	fmt.Println("Not a perfect Number")
+   }
+
+}
+
+
+func FactorsOfNumber(number int){
+	var sli []int
+	for i:=1; i<= number ;i++{
+		if number % i ==0{
+			sli = append(sli, i)
+		}
+	}
+	fmt.Println(sli)
+}
+
+func countTrailingZeros(n int) int {
+	count := 0
+
+	for n > 0 {
+		n = n / 5
+		count += n
+	}
+
+	return count
+}
+
+func KrishnaMurthiNumber(num int){
+	 var sum int
+	var originalNumber = num
+	for num !=0{
+		digit := num % 10
+	
+		sum = sum + Factorial(digit)
+		num = num /10
+
+	}
+	if originalNumber == sum{
+		fmt.Println(" Krishnamurthi number")
+	}else{
+		fmt.Println("Not Krishnamurthi number")
+	}
+	
+
+}
+
+func PascalNumber(rows int){
+	
+
+	for i := 0; i < rows; i++ {
+		num := 1
+
+		for j := 0; j <= i; j++ {
+			fmt.Print(num, " ")
+			num = num * (i - j) / (j + 1)
+		}
+
+		fmt.Println()
+	}
+}
+
+
+func RecursiveFibonocci(number int)int{
+	if number ==0{
+		return 0
+	}
+	if number ==1{
+		return 1
+	}
+	return RecursiveFibonocci(number-1)+ RecursiveFibonocci(number-2)
+
+}
+
+func RecursiveFactorial(num int)int{
+	if num == 0 || num ==1{
+		return 1
+	}
+	return num * RecursiveFactorial(num-1)
+}
+func RecursiveReVerse(num int, rev int)int{
+   if num==0{
+	return rev
+   }
+   digit := num % 10
+	rev = rev*10 + digit
+	return  RecursiveReVerse(num/10, rev)
+
+}
+
+
+func RecursiveSumOfDigits(num int)int{
+	 if num ==0{
+		return 0
+	 }
+
+     return num%10+ RecursiveSumOfDigits(num/10)
+}
 
 
 
@@ -429,11 +552,28 @@ func main(){
 
 //digimalConverstion("1010")
 
-CustomPower(3,3)
+//CustomPower(3,3)
+
+//SquareRoot(9)
+//PerfectNumber(64)
+
+//FactorsOfNumber(50)
+
+// num := 100
+// 	fmt.Println("Trailing zeros:", countTrailingZeros(num))
+
+
+//KrishnaMurthiNumber(145)
+
+//PascalNumber(5)
+//fmt.Println(RecursiveFibonocci(10))
+//fmt.Println(RecursiveFactorial(5))
+
+//fmt.Println(RecursiveReVerse(1234,0))
 
 
 
-
+fmt.Println(RecursiveSumOfDigits(2345))
 
 
 
