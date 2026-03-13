@@ -1,92 +1,127 @@
 package main
 
-import (
-	"fmt"
-)
+import "fmt"
+
+type Marks struct {
+	Subject string
+	Mark    float64
+}
 
 type Student struct {
-	Name       string
-	RollNumber string
-	Total      float64
-	Average    float64
-	Grade      rune
+	name    string
+	s_id    int
+	marks   []Marks
+	total   float64
+	average float64
+	grade   string
 }
 
-func startStudent() {
-	std1 := createStudent()
-	enterMarks(&std1)
+func CreateStudent() {
+	s1 := Student{}
+
+	fmt.Println("Enter Student Name:")
+	fmt.Scanln(&s1.name)
+
+	fmt.Println("Enter Student ID:")
+	fmt.Scanln(&s1.s_id)
+
+	fmt.Println("Enter number of subjects:")
+	var num int
+	fmt.Scanln(&num)
+
+	CreateMarks(&s1, num)
+	TotalMarks(&s1)
+	AverageMarks(&s1)
+	Grade(&s1)
+	Display(&s1)
 }
 
-func createStudent() Student {
-	var std Student
+func CreateMarks(s1 *Student, num int) {
 
-	fmt.Print("Enter the student name: ")
-	fmt.Scanln(&std.Name)
+	for i := 0; i < num; i++ {
 
-	fmt.Print("Enter the Roll number: ")
-	fmt.Scanln(&std.RollNumber)
+		var m Marks
 
-	return std
+		fmt.Println("Enter Subject Name:")
+		fmt.Scanln(&m.Subject)
+
+		fmt.Println("Enter Marks:")
+		fmt.Scanln(&m.Mark)
+
+		if m.Mark > 100 || m.Mark < 0 {
+			fmt.Println("Invalid marks entered. Try again.")
+			i--
+			continue
+		}
+
+		s1.marks = append(s1.marks, m)
+	}
 }
 
-func enterMarks(std *Student) {
-	var math, science, social float64
+func TotalMarks(s1 *Student) {
 
-	fmt.Println("Enter your marks for each subject")
+	total := 0.0
 
-	fmt.Print("Enter Math marks: ")
-	fmt.Scanln(&math)
-
-	fmt.Print("Enter Science marks: ")
-	fmt.Scanln(&science)
-
-	fmt.Print("Enter Social marks: ")
-	fmt.Scanln(&social)
-
-	std.Total = calculateTotal(math, science, social)
-
-	std.Average = calculateAverage(std.Total)
-
-	std.Grade = calculateGrade(std.Average)
-
-	displayResult(std)
-}
-
-func calculateTotal(math, science, social float64) float64 {
-	return math + science + social
-}
-
-func calculateAverage(total float64) float64 {
-	return total / 3
-}
-
-func calculateGrade(average float64) rune {
-
-	if average >= 90 {
-		return 'A'
-	} else if average >= 80 {
-		return 'B'
-	} else if average >= 70 {
-		return 'C'
-	} else if average >= 60 {
-		return 'D'
-	} else {
-		return 'F'
+	for _, m := range s1.marks {
+		total += m.Mark
 	}
 
+	s1.total = total
 }
 
-func displayResult(std *Student) {
+func AverageMarks(s1 *Student) {
 
-	fmt.Println("\n----- STUDENT RESULT -----")
-	fmt.Println("Name       :", std.Name)
-	fmt.Println("RollNumber :", std.RollNumber)
-	fmt.Println("Total Marks:", std.Total)
-	fmt.Println("Average    :", std.Average)
-	fmt.Println("Grade      :", string(std.Grade))
+	s1.average = s1.total / float64(len(s1.marks))
+}
 
+func Grade(s1 *Student) {
+
+	switch {
+
+	case s1.average >= 90:
+		s1.grade = "A"
+
+	case s1.average >= 80:
+		s1.grade = "B"
+
+	case s1.average >= 70:
+		s1.grade = "C"
+
+	case s1.average >= 60:
+		s1.grade = "D"
+
+	case s1.average >= 50:
+		s1.grade = "E"
+
+	default:
+		s1.grade = "F"
+	}
+}
+
+func Display(s1 *Student) {
+
+	fmt.Println("\n------ Student Details ------")
+
+	fmt.Println("Student Name:", s1.name)
+	fmt.Println("Student ID:", s1.s_id)
+
+	fmt.Println("\nSubjects and Marks:")
+
+	for _, m := range s1.marks {
+		fmt.Println("Subject:", m.Subject, "Marks:", m.Mark)
+	}
+
+	fmt.Println("\nTotal Marks:", s1.total)
+	fmt.Println("Average:", s1.average)
+	fmt.Println("Grade:", s1.grade)
+}
+
+func StartStudent() {
+
+	fmt.Println("Welcome to Student Information System")
+	CreateStudent()
 }
 
 func main() {
-	startStudent()
+	StartStudent()
 }
